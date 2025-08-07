@@ -1,7 +1,7 @@
 public class Subject {
-    private Teacher toughtBy;
+    private String name;
 
-    public Subject(Teacher toughtBy) {
-        this.toughtBy = toughtBy;
+    public Subject(String name) {
+        this.name = name;
     }
 }
