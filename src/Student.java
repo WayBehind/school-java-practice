@@ -1,33 +1,28 @@
+import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalDouble;
+import java.util.Map;
+import java.util.Set;
 
 public class Student {
     private String name;
-    private List<Subject> takingSubjects;
-    private List<Grade> studentsGrades; // MUST have grade in every subject!!!
+    private Map<Subject, Grade> studentsGradeInSubject;
+    private Set<Subject> takingSubjects;
 
-    public Student(String name, List<Subject> takingSubjects, List<Grade> studentsGrades) {
+    public Student(String name, Map<Subject, Grade> studentsGradeInSubject) {
         this.name = name;
-        this.takingSubjects = takingSubjects;
-        this.studentsGrades = studentsGrades;
+        this.studentsGradeInSubject = studentsGradeInSubject;
+        this.takingSubjects = studentsGradeInSubject.keySet();
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Subject> getTakingSubjects() {
+    public Map<Subject, Grade> getStudentsGradeInSubject() {
+        return studentsGradeInSubject;
+    }
+
+    public Set<Subject> getTakingSubjects() {
         return takingSubjects;
-    }
-
-    public List<Grade> getStudentsGrades() {
-        return studentsGrades;
-    }
-
-    public Double getAverageGrade() {
-        return this.studentsGrades.stream()
-                .mapToDouble(Grade::getGradeValue)
-                .average()
-                .orElse(0.0);
     }
 }

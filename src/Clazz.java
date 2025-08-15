@@ -1,21 +1,30 @@
 import java.util.List;
 
 public class Clazz {
-    private String name;
+    private String clazzName;
     private Teacher primaryTeacher;
-    private List<Student> studentsInClazz;
+    private List<Student> studentsInClass;
 
-    public Clazz(String name, Teacher primaryTeacher, List<Student> studentsInClazz) {
-        this.name = name;
-        this.primaryTeacher = primaryTeacher;
-        this.studentsInClazz = studentsInClazz;
+    public Clazz(String clazzName, Teacher primaryTeacher, List<Student> studentsInClass) {
+        this.clazzName = clazzName;
+        this.primaryTeacher = setInitialPrimaryTeacher(primaryTeacher);
+        this.studentsInClass = studentsInClass;
+}
+
+    public String getClazzName() {
+        return clazzName;
     }
 
-    public String getName() {
-        return name;
+    public Teacher getPrimaryTeacher() {
+        return primaryTeacher;
     }
 
-    public List<Student> getStudentsInClazz() {
-        return studentsInClazz;
+    public List<Student> getStudentsInClass() {
+        return studentsInClass;
     }
+
+    private Teacher setInitialPrimaryTeacher(Teacher primaryTeacher) {
+        primaryTeacher.setPrimaryTeacher(true);
+        return primaryTeacher;
+}
 }

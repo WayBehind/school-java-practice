@@ -1,15 +1,17 @@
-import java.util.List;
+public enum Grade {
+    ONE(1),
+    TWO(2),
+    THREE(3),
+    FOUR(4),
+    FIVE(5);
 
-public class Grade {
-    private Double gradeValue;
-    private Subject gradeInSubject;
+    private int intValue;
 
-    public Grade(int gradeValue, Subject gradeInSubject) {
-        this.gradeValue = (double) gradeValue;
-        this.gradeInSubject = gradeInSubject;
+    Grade(int intValue) {
+        this.intValue = intValue;
     }
 
-    public Double getGradeValue() {
-        return gradeValue;
+    public int getIntValue() {
+        return intValue;
     }
 }
