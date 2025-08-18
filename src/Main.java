@@ -1,6 +1,5 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -60,9 +59,25 @@ public class Main {
         student6Grades.put(subSports, Grade.FIVE);
         Student student6 = new Student("Silvio", student6Grades);
 
+        List<Student> allStudents = new ArrayList<>(List.of(student1, student2, student3, student4, student5, student6));
         Clazz clazz1 = new Clazz("4.A", teacher1, List.of(student1, student2, student3));
         Clazz clazz2 = new Clazz("4.B", teacher2, List.of(student4, student5, student6));
 
+        printAllStudentsByGrade(allStudents);
+        printSubjectsByGradesOfStudents(allStudents);
 
     }
+
+    public static void printAllStudentsByGrade(List<Student> studentList) {
+        studentList.stream()
+                .sorted(Comparator.comparingDouble(Student::getAverageGrade))
+                .forEach(student -> System.out.println(student.getName() + " - " + student.getAverageGrade()));
+    }
+/*
+    public static void printSubjectsByGradesOfStudents(List<Student> studentList) {
+        studentList.stream()
+                .sorted(Comparator.comparingDouble(Student::getAverageGrade))
+                .map(student -> student.getStudentsGradeInSubject())
+                .collect(Collectors.toCollection(Map<Subject, Grade>, Map<Grade, Grade.ge>));
+    }*/
 }

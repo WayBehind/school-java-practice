@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Student {
     private String name;
@@ -24,5 +21,12 @@ public class Student {
 
     public Set<Subject> getTakingSubjects() {
         return takingSubjects;
+    }
+    
+    public Double getAverageGrade() {
+        return this.studentsGradeInSubject.values().stream()
+                .mapToDouble(grade -> grade.getIntValue())
+                .average()
+                .orElse(0.0);
     }
 }
