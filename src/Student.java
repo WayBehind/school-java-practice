@@ -2,29 +2,25 @@ import java.util.*;
 
 public class Student {
     private String name;
-    private Map<Subject, Grade> studentsGradeInSubject;
+    private Map<Subject, Grade> studentSubjectGrades;
     private Set<Subject> takingSubjects;
 
-    public Student(String name, Map<Subject, Grade> studentsGradeInSubject) {
+    public Student(String name, Map<Subject, Grade> studentSubjectGrades) {
         this.name = name;
-        this.studentsGradeInSubject = studentsGradeInSubject;
-        this.takingSubjects = studentsGradeInSubject.keySet();
+        this.studentSubjectGrades = studentSubjectGrades;
+        this.takingSubjects = studentSubjectGrades.keySet();
     }
 
     public String getName() {
         return name;
     }
 
-    public Map<Subject, Grade> getStudentsGradeInSubject() {
-        return studentsGradeInSubject;
+    public Map<Subject, Grade> getStudentSubjectGrades() {
+        return studentSubjectGrades;
     }
 
-    public Set<Subject> getTakingSubjects() {
-        return takingSubjects;
-    }
-    
     public Double getAverageGrade() {
-        return this.studentsGradeInSubject.values().stream()
+        return this.studentSubjectGrades.values().stream()
                 .mapToDouble(grade -> grade.getIntValue())
                 .average()
                 .orElse(0.0);

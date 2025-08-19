@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -63,8 +62,13 @@ public class Main {
         Clazz clazz1 = new Clazz("4.A", teacher1, List.of(student1, student2, student3));
         Clazz clazz2 = new Clazz("4.B", teacher2, List.of(student4, student5, student6));
 
+
+        System.out.println("Sorted students by their average grades: ");
         printAllStudentsByGrade(allStudents);
+        System.out.println("Sorted subjects by their average grades: ");
         printSubjectsByGradesOfStudents(allStudents);
+        System.out.println("Sorted classes by their average grades: ");
+        printClazzesByBestStudent(List.of(clazz1, clazz2));
 
     }
 
@@ -73,11 +77,30 @@ public class Main {
                 .sorted(Comparator.comparingDouble(Student::getAverageGrade))
                 .forEach(student -> System.out.println(student.getName() + " - " + student.getAverageGrade()));
     }
-/*
+
     public static void printSubjectsByGradesOfStudents(List<Student> studentList) {
+
+        Map<Subject, List<Grade>> gradesBySubject = new HashMap<>();
+        Map<String, Double> sortedSubjectsByGrades = new HashMap<>();
+
         studentList.stream()
-                .sorted(Comparator.comparingDouble(Student::getAverageGrade))
-                .map(student -> student.getStudentsGradeInSubject())
-                .collect(Collectors.toCollection(Map<Subject, Grade>, Map<Grade, Grade.ge>));
-    }*/
+                .flatMap(student -> student.getStudentSubjectGrades().entrySet().stream())
+                .forEach(subject -> {
+                    gradesBySubject.computeIfAbsent(subject.getKey(), grades -> new ArrayList<>()).add(subject.getValue());
+                });
+        gradesBySubject.forEach((subject, grades) -> sortedSubjectsByGrades.put(subject.getSubjectName(), grades.stream()
+                .mapToDouble(Grade::getIntValue)
+                .average()
+                .orElse(0.0)));
+        sortedSubjectsByGrades.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(stringDoubleEntry -> System.out.println(stringDoubleEntry.getKey() + " - " + stringDoubleEntry.getValue()));
+    }
+
+    public static void printClazzesByBestStudent(List<Clazz> clazzes) {
+        clazzes.stream()
+                .sorted(Comparator.comparing(Clazz::getClazzAverageGrade))
+                .forEach(clazz -> System.out.println(clazz.getClazzName() + " - " + clazz.getClazzAverageGrade()));
+    }
+
 }

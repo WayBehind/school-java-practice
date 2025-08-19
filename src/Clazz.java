@@ -9,14 +9,10 @@ public class Clazz {
         this.clazzName = clazzName;
         this.primaryTeacher = setInitialPrimaryTeacher(primaryTeacher);
         this.studentsInClass = studentsInClass;
-}
+    }
 
     public String getClazzName() {
         return clazzName;
-    }
-
-    public Teacher getPrimaryTeacher() {
-        return primaryTeacher;
     }
 
     public List<Student> getStudentsInClass() {
@@ -26,5 +22,12 @@ public class Clazz {
     private Teacher setInitialPrimaryTeacher(Teacher primaryTeacher) {
         primaryTeacher.setPrimaryTeacher(true);
         return primaryTeacher;
-}
+    }
+
+    public Double getClazzAverageGrade() {
+        return this.getStudentsInClass().stream()
+                .mapToDouble(Student::getAverageGrade)
+                .average()
+                .orElse(0.0);
+    }
 }
